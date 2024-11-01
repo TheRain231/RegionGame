@@ -11,15 +11,26 @@ struct PickerView: View {
     @State var vm = ViewModel()
     
     var body: some View {
-        HStack(spacing: 0){
-            item(text: String(vm.regionNumber / 10), 10)
-            item(text: String(vm.regionNumber % 10), 1)
+        VStack{
+            HStack(spacing: 0){
+                item(text: String(vm.regionNumber / 10), 10)
+                item(text: String(vm.regionNumber % 10), 1)
+            }
+            .mask(RoundedRectangle(cornerRadius: 20))
+            .overlay {
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(style: .init(lineWidth: 3, lineCap: .round))
+            }
+            
+            desribtion()
+                .padding()
         }
-        .mask(RoundedRectangle(cornerRadius: 20))
-        .overlay {
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(style: .init(lineWidth: 3, lineCap: .round))
-        }
+    }
+    
+    func desribtion() -> some View{
+        Text(vm.currentRegionName())
+            .font(.title)
+            .fontWeight(.semibold)
     }
     
     func item(text: String, _ scale: Int) -> some View{

@@ -10,10 +10,10 @@ import SwiftUI
 extension PickerView {
     @Observable
     class ViewModel {
-        private(set) var regionNumber: Int = 0
+        private(set) var regionNumber: Int = 52
         
         func decrement(scale: Int){
-            if regionNumber - scale >= 0 {
+            if regionNumber - scale > 0 {
                 regionNumber -= scale
             }
         }
@@ -22,6 +22,13 @@ extension PickerView {
             if regionNumber + scale < 100 {
                 regionNumber += scale
             }
+        }
+        
+        func currentRegionName() -> String {
+            guard let region = regions[regionNumber] else {
+                return "Unknown"
+            }
+            return region.name
         }
     }
 }
