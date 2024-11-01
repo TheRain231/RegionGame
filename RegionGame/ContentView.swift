@@ -13,7 +13,7 @@ struct ContentView: View {
             HomeView()
 
         }
-        .safeAreaInset(edge: .top) {
+        .overlay(alignment: .top) {
             NavigationHeader()
         }
     }
