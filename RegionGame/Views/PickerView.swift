@@ -21,7 +21,6 @@ struct PickerView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(style: .init(lineWidth: 3, lineCap: .round))
             }
-            
             desribtion()
                 .padding()
         }
@@ -32,7 +31,8 @@ struct PickerView: View {
             .font(.title)
             .fontWeight(.semibold)
             .multilineTextAlignment(.center)
-            .lineLimit(vm.isClicked ? 6 : 2)
+            .lineLimit(vm.isClicked ? nil : 2)
+            .frame(maxHeight: vm.isClicked ? nil : 70, alignment: .top)
             .overlay {
                 if (vm.buttonAppears()){
                     Button{
@@ -44,6 +44,7 @@ struct PickerView: View {
                     }
                 }
             }
+            
     }
     
     func item(text: String, _ scale: Int) -> some View{

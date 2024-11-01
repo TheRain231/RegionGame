@@ -30,7 +30,7 @@ extension PickerView {
         
         func currentRegionName() -> String {
             guard let region = regions[regionNumber] else {
-                return "Unknown"
+                return "Неиспользуемый"
             }
             return region.name
         }
