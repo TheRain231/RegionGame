@@ -11,7 +11,6 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { _ in
             HomeView()
-
         }
         .overlay(alignment: .top) {
             NavigationHeader()
