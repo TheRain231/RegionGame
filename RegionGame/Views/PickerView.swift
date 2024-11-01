@@ -31,6 +31,19 @@ struct PickerView: View {
         Text(vm.currentRegionName())
             .font(.title)
             .fontWeight(.semibold)
+            .multilineTextAlignment(.center)
+            .lineLimit(vm.isClicked ? 6 : 2)
+            .overlay {
+                if (vm.buttonAppears()){
+                    Button{
+                        withAnimation {
+                            vm.toggleClicked()
+                        }
+                    } label: {
+                        Color.clear
+                    }
+                }
+            }
     }
     
     func item(text: String, _ scale: Int) -> some View{
