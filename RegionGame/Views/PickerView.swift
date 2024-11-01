@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct PickerView: View {
-    @State var regionNumber: Int = 0
+    @State var vm = ViewModel()
     
     var body: some View {
         HStack(spacing: 0){
-            item(text: String(regionNumber / 10), 10)
-            item(text: String(regionNumber % 10), 1)
+            item(text: String(vm.regionNumber / 10), 10)
+            item(text: String(vm.regionNumber % 10), 1)
         }
         .mask(RoundedRectangle(cornerRadius: 20))
         .overlay {
@@ -25,24 +25,26 @@ struct PickerView: View {
     func item(text: String, _ scale: Int) -> some View{
         VStack(spacing: 0){
             upperButton(scale)
-            
-            ZStack{
-                Rectangle()
-                    .stroke(style: .init(lineWidth: 0, lineCap: .round))
-                    .aspectRatio(0.75, contentMode: .fit)
-                Text(text)
-                    .font(.system(size: 150, weight: .medium, design: .rounded))
-                    .contentTransition(.numericText(value: Double(regionNumber)))
-            }
-            
+            itemBody(text)
             downerButton(scale)
+        }
+    }
+    
+    func itemBody(_ text: String) -> some View{
+        ZStack{
+            Rectangle()
+                .stroke(style: .init(lineWidth: 3, lineCap: .round))
+                .aspectRatio(0.75, contentMode: .fit)
+            Text(text)
+                .font(.system(size: 150, weight: .medium, design: .rounded))
+                .contentTransition(.numericText(value: Double(vm.regionNumber)))
         }
     }
     
     func upperButton(_ scale: Int) -> some View{
         Button {
             withAnimation {
-                regionNumber += scale
+                vm.encrement(scale: scale)
             }
         } label: {
             ZStack{
@@ -63,7 +65,7 @@ struct PickerView: View {
     func downerButton(_ scale: Int) -> some View{
         Button {
             withAnimation {
-                regionNumber -= scale
+                vm.decrement(scale: scale)
             }
         } label: {
             ZStack{
